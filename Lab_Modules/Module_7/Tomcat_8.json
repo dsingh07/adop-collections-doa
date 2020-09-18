@@ -30,6 +30,11 @@
       }
   }, 
   "Parameters": {
+    "YourADOPIPAddress": {
+      "Description": "Enter your ADOP-C Stack IP Address for Deployment",
+      "Type": "String",
+      "Default": "0.0.0.0"
+    },    
     "VpcID": {
       "Description": "VPC Id of existing stack. See Output section of your stack.",
       "Type": "AWS::EC2::VPC::Id"
@@ -61,13 +66,7 @@
             "IpProtocol": "tcp",
             "FromPort": "22",
             "ToPort": "22",
-            "CidrIp": "0.0.0.0/0"
-          },
-		  {
-            "IpProtocol": "tcp",
-            "FromPort": "8080",
-            "ToPort": "8080",
-            "CidrIp": "0.0.0.0/0"
+            "CidrIp": {"Fn::Join": ["", [{"Ref": "YourADOPIPAddress"}, "/32"]]} 
           },
           {
             "IpProtocol": "tcp",
