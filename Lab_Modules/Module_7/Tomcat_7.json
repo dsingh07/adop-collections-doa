@@ -58,12 +58,6 @@
         },
         "SecurityGroupIngress": [
           {
-            "IpProtocol": "tcp",
-            "FromPort": "22",
-            "ToPort": "22",
-            "CidrIp": "0.0.0.0/0"
-          },
-          {
             "IpProtocol": "tcp",						   		
             "FromPort": "80",
             "ToPort": "80",
@@ -107,7 +101,9 @@
 						"sed -i s/SELINUX=enforcing/SELINUX=permissive/ /etc/selinux/config\n",
 						"setenforce 0\n",
 						"export IP=$(hostname --ip-address)\n",
-						"docker run -dt --name=tomcat7 -p 80:8080 tomcat:7.0\n"
+            "docker run -dt --name=tomcat7 -p 80:8080 tomcat:7.0\n",
+						"docker exec tomcat7 mv webapps webapps.del\n",
+						"docker exec tomcat7 mv webapps.dist webapps\n"            
 					]
 				]
 			}
