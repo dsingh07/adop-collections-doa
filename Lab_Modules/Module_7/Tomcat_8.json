@@ -4,29 +4,37 @@
   "Mappings": {
       "RegionMap": {
         "eu-central-1": {
-          "AMI": "ami-9bf712f4"
+          "AMI": "ami-2882ddc3"
         },
         "eu-west-1": {
-          "AMI": "ami-7abd0209"
+          "AMI": "ami-1caef165"
         },
         "us-east-1": {
-          "AMI": "ami-6d1c2007"
+          "AMI": "ami-b81dbfc5"
         },
         "us-west-2": {
-          "AMI": "ami-d2c924b2"
+          "AMI": "ami-0ebdd976"
         },
         "us-west-1": {
-          "AMI": "ami-af4333cf"
+          "AMI": "ami-78485818"
+        },
+        "ap-southeast-1":{
+          "AMI": "ami-16a4fe6a"
         },
         "ap-southeast-2": {
-          "AMI": "ami-fedafc9d"
+          "AMI": "ami-dda36dbf"
         },
         "ap-south-1": {
-          "AMI": "ami-95cda6fa"
+          "AMI": "ami-2014314f"
         }
       }
   }, 
   "Parameters": {
+    "YourADOPIPAddress": {
+      "Description": "Enter your ADOP-C Stack IP Address for Deployment",
+      "Type": "String",
+      "Default": "0.0.0.0"
+    },    
     "VpcID": {
       "Description": "VPC Id of existing stack. See Output section of your stack.",
       "Type": "AWS::EC2::VPC::Id"
@@ -58,13 +66,7 @@
             "IpProtocol": "tcp",
             "FromPort": "22",
             "ToPort": "22",
-            "CidrIp": "0.0.0.0/0"
-          },
-		  {
-            "IpProtocol": "tcp",
-            "FromPort": "8080",
-            "ToPort": "8080",
-            "CidrIp": "0.0.0.0/0"
+            "CidrIp": {"Fn::Join": ["", [{"Ref": "YourADOPIPAddress"}, "/32"]]} 
           },
           {
             "IpProtocol": "tcp",
